@@ -1,0 +1,89 @@
+# #!/bin/bash
+snippet #!
+	#!/bin/bash
+	
+snippet if
+	if [[ ${1:condition} ]]; then
+		${2:#statements}
+	fi
+snippet elif
+	elif [[ ${1:condition} ]]; then
+		${2:#statements}
+snippet for
+	for (( ${2:i} = 0; $2 < ${1:count}; $2++ )); do
+		${3:#statements}
+	done
+snippet wh
+	while [[ ${1:condition} ]]; do
+		${2:#statements}
+	done
+snippet until
+	until [[ ${1:condition} ]]; do
+		${2:#statements}
+	done
+snippet case
+	case ${1:word} in
+		${2:pattern})
+			${3};;
+	esac
+
+snippet quickstart
+	#!/bin/bash
+	
+	# Shell script
+	
+	# setup global variables
+	VERSION="$Revision$"
+	PROGNAME=\`basename $0\`
+	PROGARGS=$@
+	
+	function version {
+		printf "$PROGNAME $VERSION\n"
+		exit 2
+		}
+	
+	function usage {
+		printf "\n\n"
+		printf "usage: $PROGNAME\n\n"
+		printf "\t-b directory with BAM files\n";
+		printf "\n\n"
+		exit 1
+		}
+	
+	# process the command line arguments
+	function cmdargs {
+		args=\`getopt b: $*\`
+	
+		set -- $args
+		for optarg
+		do
+			case $optarg in
+				-b)
+					INPUT_DIR=$2; shift; shift;
+					;;
+				--)
+					shift; break
+					;;
+			esac
+		done
+		}
+	
+	# setup the default command line parameters
+	function default {
+		if [ -z $INPUT_DIR ] ; then
+			usage
+		fi
+	
+		}
+	
+	# main program
+	function main {
+	
+		}
+	
+	cmdargs $PROGARGS
+	default
+	main
+	
+	# cursor: 2 del
+	

@@ -1,0 +1,276 @@
+# #!/usr/bin/perl
+snippet #!
+	#!/usr/bin/perl
+	
+# Function
+snippet sub
+	=item ${1:function}
+
+	${2:description}
+
+	=cut
+	sub $1 {
+		${3:body}
+		}
+
+# Conditional
+snippet if
+	if (${1}) {
+		${2:# body...}
+		}
+# Conditional if..else
+snippet ife
+	if (${1}) {
+		${2:# body...}
+		}
+	else {
+		${3:# else...}
+		}
+# Conditional if..elsif..else
+snippet ifee
+	if (${1}) {
+		${2:# body...}
+	} elsif (${3}) {
+		${4:# elsif...}
+	} else {
+		${5:# else...}
+	}
+# Conditional One-line
+snippet xif
+	${1:expression} if ${2:condition};${3}
+# Unless conditional
+snippet unless
+	unless (${1}) {
+		${2:# body...}
+		}
+# Unless conditional One-line
+snippet xunless
+	${1:expression} unless ${2:condition};${3}
+# Try/Except
+snippet eval
+	eval {
+		${1:# do something risky...}
+		};
+	if ($@) {
+		${2:# handle failure...}
+		}
+# While Loop
+snippet wh
+	while (${1}) {
+		${2:# body...}
+		}
+# While Loop One-line
+snippet xwh
+	${1:expression} while ${2:condition};${3}
+# For Loop
+snippet for
+	for (my $${2:var} = 0; $$2 < ${1:count}; $$2${3:++}) {
+		${4:# body...}
+		}
+# Foreach Loop
+snippet fore
+	foreach my $${1:x} (@${2:array}) {
+		${3:# body...}
+		}
+# Foreach Loop One-line
+snippet xfore
+	${1:expression} foreach @${2:array};${3}
+# Package
+snippet cl
+	package ${1:ClassName};
+	
+	use base qw(${2:ParentClass});
+	
+	sub new {
+		my $class = shift;
+		$class = ref $class if ref $class;
+		my $self = bless {}, $class;
+		$self;
+		}
+	
+	 1;${3}
+# Read File
+snippet slurp
+
+snippet getset
+	=item $obj->${1:name}()
+
+	Get/set the $1.
+
+	=cut
+	sub $1 {
+		my $self = shift;
+		if (@_) {
+			$self->{${2:NAME}} = shift;
+			}
+		return $self->{$2};
+		}
+
+snippet subcomment
+	### subc ##########################################################################################
+	# Description:
+	#	${3:description of subroutine}
+	# Input Variables:
+	#	${2:inputVariables}
+	# Output Variables:
+	#	${3:n/a}
+
+snippet preamble
+	### PREAMBLE ######################################################################################
+	#
+	#
+
+snippet history
+	### HISTORY #######################################################################################
+	#   Version         Date            Dev             Comment
+	#   0.01
+
+snippet includes
+	### INCLUDES ######################################################################################
+	use strict;
+	use warnings
+	use Switch;
+	use Cwd;
+	use Carp;
+	use Data::Dumper;
+
+snippet poditem
+	=item ${1:item}
+
+	${2:description}
+
+	=cut
+
+snippet method
+	=item $obj->${1:methodName}()
+
+	${2:description}
+
+	=cut
+	sub $1 {
+		my $self = shift;
+
+		${3:method}
+
+		}
+
+# read and process a file line by line
+snippet readlines
+	open(my $${1:ifh}, '<', $${2:input_file}) or croak "Cannot open file $$2: $!";
+	while(my $line = <$$1>) {
+		$line =~ s/^\s+//;
+		$line =~ s/\s+$//;
+		${3:code for processing line goes here}
+		}
+	close($$1);
+
+# strip leading and trailing whitespace
+snippet strip
+	$${1:line} =~ s/^\s+//;
+	$$1 =~ s/\s+$//;
+
+# create a Perl module skeleton
+snippet create_module
+	`strpart("### " . ${1:module.pm} . ".R ####################################################################################################", 0, 100)`
+	# ${2:Description of module}
+	
+	### HISTORY #######################################################################################
+	# Version       Date            Developer           Comments
+	# 0.01
+	
+	### INCLUDES ######################################################################################
+	use 5.010000;
+	use warnings;
+	use strict;
+	use Carp;
+	use Pod::Usage;
+	
+	package ${3:packageName};
+	
+	=head1 NAME
+	
+		$3
+	
+	=head1 SYNOPSIS
+	
+		use $3;
+		my $obj = $3->new();
+	
+	=head1 DESCRIPTION
+	
+	${4:Description of module}
+	
+	=cut
+	
+	use strict;
+	use POSIX qw/strftime/;
+	use Carp;
+	
+	require Exporter;
+	our @ISA = qw(Exporter);
+	our %EXPORT_TAGS = ('all'=>[qw(
+	
+		)]);
+	our @EXPORT_OK = (${EXPORT_TAGS{'all'}});
+	our @EXPORT = qw();
+	
+	our $VERSION = '0.01';
+	
+	=head1 METHODS
+	
+	=over 4
+	
+	=item $obj->new()
+	
+	Instantiate a new object.
+	
+	=cut
+	
+	sub new {
+	    my $proto = shift;
+	    my $class = ref($proto) || $proto;
+	    my %params = @_;
+	    
+	    my $self = {};
+	    bless($self, $class);
+	
+	    $self->_init(%params);
+	    
+	    return $self;
+		}
+	
+	
+	=item _init()
+	
+	Internal initialization function.  This is not exported and should not
+	be called by the calling application.
+	
+	=cut
+	sub _init {
+		my $self = shift;
+		my %params = @_;
+	
+		# process all the parameters
+		while (my ($param, $value) = each %params) {
+			$self->$param($value);
+			}
+		}
+	
+	1;
+	
+	__END__
+	
+	=back
+	
+	=head1 FEEDBACK
+	
+	Please direct all feedback and bug reports to the author.
+	
+	=head1 AUTHOR
+	
+	${5:username} -- Boutros Lab
+	
+	The Ontario Institute for Cancer Research
+	
+	=cut
+

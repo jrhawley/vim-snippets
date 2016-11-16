@@ -1,0 +1,58 @@
+#!/bin/bash
+
+# Shell script
+
+# setup global variables
+VERSION="$Revision$"
+PROGNAME=`basename $0`
+PROGARGS=$@
+
+function version {
+	printf "$PROGNAME $VERSION\n"
+	exit 2
+}
+
+function usage {
+	printf "\n\n"
+	printf "usage: $PROGNAME\n\n"
+	printf "\t-b directory with BAM files\n";
+	printf "\n\n"
+	exit 1
+}
+
+# process the command line arguments
+function cmdargs {
+	args=`getopt b: $*`
+
+	set -- $args
+	for optarg
+	do
+		case $optarg in
+			-b)
+				INPUT_DIR=$2; shift; shift;
+				;;
+			--)
+				shift; break
+				;;
+		esac
+	done
+}
+
+# setup the default command line parameters
+function default {
+	if [ -z $INPUT_DIR ] ; then
+		usage
+	fi
+
+}
+
+# main program
+function main {
+
+}
+
+cmdargs $PROGARGS
+default
+main
+
+# cursor: 2 del

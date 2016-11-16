@@ -1,0 +1,144 @@
+% doc type
+\documentclass{article}
+
+%%% packages %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{longtable}
+\usepackage{rotating}
+\usepackage{tabularx}
+\usepackage{xcolor}
+\usepackage{colortbl}
+\usepackage{cite}
+\usepackage{color}
+\usepackage{Sweave}
+\usepackage{lastpage}
+\usepackage{fancyhdr}
+%\usepackage{subfigure}
+%\usepackage{subcaption}
+\usepackage{subfig}
+
+%%% SWEAVE OPTIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% margins
+\setlength{\topmargin}{0in}
+\setlength{\textheight}{9in}
+\setlength{\textwidth}{7in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+
+% header options
+%\pagestyle{myheadings}
+\pagestyle{fancy}
+%\markright{CAFs/NAFs}
+\cfoot{\thepage\ of \pageref*{LastPage}}
+%\cfoot{\thepage\ of LastPage}
+
+% custom macros
+\def\fref[#1]{Figure~\ref{#1}} 
+\def\rcode[#1]{\texttt{#1}}
+\def\figdate{2012-07-04}
+
+% sweave options
+\SweaveOpts{prefix.string=figures/popcure_tma}
+
+% define meta data
+\title{A Comparison of Cancer and Normal Associated Fibroblasts}
+\author{Daryl Waggott}
+\date{\today}
+
+%%% R OPTIONS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+<<>>=
+library(xtable);
+@
+
+
+%%% BEGIN DOC %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% start doc
+\begin{document}
+
+% add table of contents
+\maketitle
+\tableofcontents
+\listoftables
+\listoffigures
+
+%%% SUMMARY %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Summary}
+
+% a table of the key points
+\begin{itemize}
+\item{Start}
+\item{End}
+\end{itemize}
+
+%%% INTRODUCTION %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Introduction}
+\subsection{Background}
+\subsection{Hypothesis}
+
+% a table
+\begin{enumerate}
+\item{Start}
+\item{End}
+\end{enumerate}
+
+\clearpage
+
+%%% METHODS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Methods}
+
+% a table describing the analysis plan
+\begin{enumerate}
+\item{Start}
+\item{End}
+\end{enumerate}
+
+% study design flowchart
+<< >>=
+@
+
+% a demographics table
+
+\clearpage
+
+%%% QC %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{QC}
+
+% a figure with 4 subplots
+\begin{figure}
+\centering
+\subfloat[Unnormalized]{\includegraphics[width=0.48\textwidth]{gfx/\fig1.pdf}}
+\subfloat[Normalized]{\includegraphics[width=0.48\textwidth]{gfx/\fig2.pdf}}
+\qquad
+\subfloat[Degradation]{\includegraphics[width=0.48\textwidth]{gfx/\fig3.pdf}}
+\subfloat[Correlation]{\parbox[t]{0.5\linewidth}{\includegraphics[width=0.55\textwidth]{gfx/\fig4.pdf}}}
+\caption[QC]{A bunch of plots}
+\label{label}
+\end{figure}
+
+\clearpage
+
+%%% RESULTS %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% top results
+top.results.xtable <- xtable(
+	top.path.results.enrich2,
+	display = c("d","s","d","d","f","f"),
+	label = "tab:top.paths", 
+	caption = c("Top Results"));
+
+align(top.results.xtable) <- c(rep('p{.8in}', 3), rep('p{1.2in}', 5)) 
+print(top.results.xtable, include.rownames = FALSE, long.table = TRUE, size = "tiny", rotate.colnames = FALSE);
+@
+
+
+%%% REFERENCES %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

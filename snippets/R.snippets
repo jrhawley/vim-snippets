@@ -1,0 +1,143 @@
+snippet quickstart
+	#! /.mounts/labs/boutroslab/private/Software/NightlyBuild_current/Rscript
+	
+	`strpart("### " . Filename() . ".R ####################################################################################################", 0, 100)`
+	# ${1:Description}
+	
+	### HISTORY ########################################################################################
+	# Version       Date            Developer           Comments
+	# 0.01
+	
+	### NOTES ##########################################################################################
+	# ${2:Analysis Plan}
+	
+	### PREAMBLE #######################################################################################
+	# Setting the Environment
+	
+	library(BoutrosLab.utilities);
+	library(BoutrosLab.plotting.general);
+	
+	date <- Sys.Date();
+	cfg <- read.config.file();
+	
+	### FUNCTIONS #####################################################################################
+	
+	### GET_DATA ######################################################################################
+	
+	### PROCESS_DATA ##################################################################################
+	
+	### ANALYSIS ######################################################################################
+	
+	### PLOTTING ######################################################################################
+	
+	### SESSION_INFO ##################################################################################
+	
+	save.session.profile(generate.filename(cfg$project.stem, '`Filename()`_Session_Info','txt'), FALSE);
+
+
+snippet start
+	### ${1:scriptName} ###########################################################################
+
+snippet preamble
+	### PREAMBLE ##################################################################################
+
+snippet main
+	### MAIN ######################################################################################
+
+snippet ##
+	###############################################################################################
+
+
+# library()
+snippet li
+	library(${1:})
+# If Condition
+snippet if
+	if (${1:condition}) {
+		${2:}
+		}
+snippet el
+	else {
+		${1:}
+		}
+snippet wh
+	while (${1:condition}) {
+		${2:}
+		}
+# For Loop
+snippet for
+	for (${1:i} in ${2:range}) {
+		${3:}
+		}
+# Function
+snippet fun
+	${1:funname} <- function(${ 2:}) {
+		${3:}
+		}
+# repeat
+snippet re
+	repeat{
+		${2:}
+		if(${1:condition}) break
+		}
+
+# usage section
+snippet usage
+	### USAGE ##########################################################################################
+	# Command Line Parameters
+	# An alternative to a config file
+
+	usage <- function(){
+		usage.text <- 
+		'\nsome_function.R
+			-h help
+			-i input
+			-o output_prefix (required)
+			-e esf
+			-v vcf
+			-b bam
+		EXAMPLES:
+		Rscript sompe_function.R -h'
+		return(usage.text);
+		}
+
+	### CHECK INPUT ##################################################################################
+
+	opt = getopt(params);
+
+	# verified required argments and sets defaults
+	if (!is.null(opt$help) || is.null(opt$type) || is.null(opt$output)){
+		cat(usage());
+		q(status=1)
+		}
+
+# Get Options
+snippet getopt
+	library('getopt');
+	
+	params = matrix(
+		c('file', 'f', 1, 'character'),
+		ncol = 4,
+		byrow = TRUE,
+		);
+	
+	opt = getopt(params);
+
+# Read tab delimited (BL utilities)
+snippet rtd
+	${1:object} <- read.tabdelimited( file = ${2:file} );
+
+# Read table
+snippet rtab
+	${1:object} <- read.table(
+		file = ${2:file},
+		header = ${3:TRUE},
+		rownames = ${4:1},
+		as.is = ${5:TRUE}
+		);
+
+#read config file
+snippet config
+	cfg <- read.config.file(
+		config.file = ${1:file},
+		);

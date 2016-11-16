@@ -1,0 +1,105 @@
+### name.pm #######################################################################################
+# Description of module
+
+### HISTORY #######################################################################################
+# Version       Date            Developer           Comments
+# 0.01
+
+### INCLUDES ######################################################################################
+use 5.010000;
+use warnings;
+use strict;
+use Carp;
+use Pod::Usage;
+
+package packageName;
+
+=head1 NAME
+
+	packageName
+
+=head1 SYNOPSIS
+
+	use packageName
+	my $obj = packageName->new();
+
+=head1 DESCRIPTION
+
+
+
+=cut
+
+use strict;
+use POSIX qw/strftime/;
+use Carp;
+
+require Exporter;
+our @ISA = qw(Exporter);
+our %EXPORT_TAGS = ('all'=>[qw(
+
+	)]);
+our @EXPORT_OK = (${EXPORT_TAGS{'all'}});
+our @EXPORT = qw();
+
+our $VERSION = '0.01';
+
+=head1 METHODS
+
+=over 4
+
+=item $obj->new()
+
+Instantiate a new object.
+
+=cut
+
+sub new {
+    my $proto = shift;
+    my $class = ref($proto) || $proto;
+    my %params = @_;
+    
+    my $self = {};
+    bless($self, $class);
+
+    $self->_init(%params);
+    
+    return $self;
+	}
+
+
+=item _init()
+
+Internal initialization function.  This is not exported and should not
+be called by the calling application.
+
+=cut
+sub _init {
+	my $self = shift;
+	my %params = @_;
+
+	# process all the parameters
+	while (my ($param, $value) = each %params) {
+		$self->$param($value);
+		}
+	}
+
+1;
+
+__END__
+
+=back
+
+=head1 FEEDBACK
+
+Please direct all feedback and bug reports to the author.
+
+=head1 AUTHOR
+
+username -- Boutros Lab
+
+The Ontario Institute for Cancer Research
+
+=cut
+
+
+# cursor: 5 del
